@@ -24,13 +24,33 @@ class AuthController extends Controller
         }
 
         $input = $request->all();
-        $input['password'] = bcrypt($request->get('password'));
+        $input['password'] = bcrypt($input['password']); // bcrypt($request->get('password'));
         $user = User::create($input);
-        $token =  $user->createToken('MyApp')->accessToken;
+        $token =  $user->createToken('ProjectManager')->accessToken;
 
         return response()->json([
             'token' => $token,
             'user' => $user
         ], 200);
+    }
+
+    public function login(Request $request)
+    {
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+            $token =  $user->createToken('ProjectManager')->accessToken;
+            return response()->json([
+                'token' => $token,
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json(['error' => 'Unauthorised'], 401);
+        }
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return response()->json(compact('user'), 200);
     }
 }

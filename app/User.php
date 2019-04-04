@@ -48,4 +48,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Team', 'role_team_user')->withPivot('role_id') ;
     }
 
+    public function projects()
+    {
+        // return $this->belongsToMany('App\Project', 'project_user', 'project_id') ;
+        return $this->belongsToMany('App\Project', 'project_user', 'project_id', 'user_id')->withPivot('project_role_id') ;
+    }
+    
+    public function project_role()
+    {
+        return $this->belongsToMany('App\ProjectRole', 'project_user', 'project_role_id', 'user_id')->withPivot('project_id');
+
+    }
+
 }

@@ -4,9 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use Auth;
 
 class RoleController extends Controller
 {
+
+    public function roles()
+    {
+        $user = Auth::user();
+        $roles = $user->project_role;
+
+        return response()->json( [ 'roles' => $roles ] ) ;
+
+    }
     /**
      * Display a listing of the resource.
      *

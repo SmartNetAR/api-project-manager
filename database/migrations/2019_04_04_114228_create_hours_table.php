@@ -15,14 +15,14 @@ class CreateHoursTable extends Migration
     {
         Schema::create('hours', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('id_project_user_role')->unsigned();
+            $table->bigInteger('id_project_role')->unsigned();
             $table->date('date');
             $table->date('start');
             $table->date('finish');
             $table->text('description');
             $table->timestamps();
 
-            $table->foreign('id_project_user_role')->references('id')->on('project_user_roles') ;
+            $table->foreign('id_project_role')->references('id')->on('project_roles') ;
         });
     }
 

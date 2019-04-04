@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use Auth;
+use App\User;
 
 class ProjectController extends Controller
 {
@@ -14,7 +16,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user() ;
+
+        $user = User::where( 'id', $user->id )
+            ->with('projects')
+            ->with('project_role')
+            ->get() ;
+
+        return response()->json([ 'user' => $user ]) ;
+        // return response()->json([ 'projects' => $user->projects]) ;
     }
 
     /**
@@ -44,9 +54,13 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
-        //
+        $project = Project::where('id', $id)
+            ->with('users')
+            ->get();
+
+        return response()->json( [ 'project' => $project ], 400 ) ;
     }
 
     /**

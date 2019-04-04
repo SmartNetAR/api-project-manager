@@ -121,8 +121,13 @@ class TeamController extends Controller
 
     public function join( $id )
     {
-        $team = Team::find( $id )
-            ->users()->attach( 
+        $team = Team::find( $id );
+
+        if ( ! isset( $team ) )
+            return response()->json( [ 'error' => 'the team does not exist' ], 422 );
+        // validar que el usuario no pertenezca al equipo
+                
+        $team->users()->attach( 
             Auth::user(), ['role_id' => '2'] );
 
         return response()->json( [ 'message' => 'joined to team sussefly' ], 400 ) ;

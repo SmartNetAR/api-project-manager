@@ -13,7 +13,7 @@ class CreateProjectUserRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_user_roles', function (Blueprint $table) {
+        Schema::create('project_roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateProjectUserRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_user_roles');
+        Schema::dropIfExists('project_roles');
     }
 }

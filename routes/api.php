@@ -22,7 +22,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get(  'team/{id}', 'TeamController@show' );
     Route::post( 'team', 'TeamController@store' );
     Route::get(  'team/join/{id}', 'TeamController@join' );
+    /* project */
+    Route::get(  'project', 'ProjectController@index' );
+    Route::get(  'project/{id}', 'ProjectController@show' );
     
     /* user */
+    Route::get( 'user/roles', 'RoleController@roles' );
     // Route::get('user/{id}', 'TeamController@show');
 });

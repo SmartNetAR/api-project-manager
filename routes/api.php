@@ -18,5 +18,11 @@ Route::post('login', 'AuthController@login');
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('profile', 'AuthController@profile');
+    /* team */
+    Route::get(  'team/{id}', 'TeamController@show' );
+    Route::post( 'team', 'TeamController@store' );
+    Route::get(  'team/join/{id}', 'TeamController@join' );
     
+    /* user */
+    // Route::get('user/{id}', 'TeamController@show');
 });

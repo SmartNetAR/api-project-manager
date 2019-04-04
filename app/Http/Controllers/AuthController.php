@@ -36,6 +36,14 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
             $token =  $user->createToken('ProjectManager')->accessToken;

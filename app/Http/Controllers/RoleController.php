@@ -14,7 +14,7 @@ class RoleController extends Controller
         $user = Auth::user();
         $roles = $user->project_role;
 
-        return response()->json( [ 'roles' => $roles ] ) ;
+        return response()->json( [ 'roles' => $roles ], 200 ) ;
 
     }
     /**

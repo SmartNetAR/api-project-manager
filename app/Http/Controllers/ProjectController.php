@@ -23,7 +23,7 @@ class ProjectController extends Controller
             ->with('project_role')
             ->get() ;
 
-        return response()->json([ 'user' => $user ]) ;
+        return response()->json([ 'user' => $user ], 200) ;
         // return response()->json([ 'projects' => $user->projects]) ;
     }
 
@@ -60,7 +60,7 @@ class ProjectController extends Controller
             ->with('users')
             ->get();
 
-        return response()->json( [ 'project' => $project ], 400 ) ;
+        return response()->json( [ 'project' => $project ], 200 ) ;
     }
 
     /**

@@ -19,7 +19,8 @@ Route::post('login', 'AuthController@login');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('profile', 'AuthController@profile');
     /* team */
-    Route::get(  'team/{id}', 'TeamController@show' );
+    Route::get(  'team/{id}', 'TeamController@show' )->where('id', '[0-9]+');
+    Route::get(  'team/{name}', 'TeamController@showByName' )->where('name', '[A-Za-z_-]+');
     Route::post( 'team', 'TeamController@store' );
     Route::get(  'team/join/{id}', 'TeamController@join' );
     /* project */

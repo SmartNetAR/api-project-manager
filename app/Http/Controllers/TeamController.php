@@ -82,7 +82,7 @@ class TeamController extends Controller
             ->with('users')
             ->get();
 
-        return response()->json( [ 'team' => $team ], 400 ) ;
+        return response()->json( [ 'team' => $team ], 200 ) ;
     }
 
     /**
@@ -130,6 +130,16 @@ class TeamController extends Controller
         $team->users()->attach( 
             Auth::user(), ['role_id' => '2'] );
 
-        return response()->json( [ 'message' => 'joined to team sussefly' ], 400 ) ;
+        return response()->json( [ 'message' => 'joined to team sussefly' ], 200 ) ;
     }
+
+    public function showByName( $name )
+    {
+        $team = Team::where('name', $name)
+            ->with('users')
+            ->get();
+
+        return response()->json( [ 'team' => $team ], 200 ) ;
+    }
+
 }

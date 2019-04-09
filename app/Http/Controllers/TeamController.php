@@ -58,7 +58,7 @@ class TeamController extends Controller
                 $team->users()->attach( 
                     Auth::user(), ['role_id' => '1']
                 );
-                return response()->json( [ 'team' => $team ], 400 ) ;
+                return response()->json( [ 'team' => $team ], 200 ) ;
             }
             catch (\Exception $e)
             {

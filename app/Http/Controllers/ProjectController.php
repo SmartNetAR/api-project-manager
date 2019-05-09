@@ -129,4 +129,21 @@ class ProjectController extends Controller
     {
         //
     }
+
+    public function join( Request $request, $id )
+    {
+        //solo el admin del team puede crear proyectos ??
+
+        //solo el admin del team puede unir usuarios a proyectos ??
+        $project = Project::find( $id );
+
+        if ( ! isset( $project ) )
+            return response()->json( [ 'error' => 'the project does not exist' ], 422 );
+        // validar que el usuario no pertenezca al equipo
+                
+        $project->users()->attach( 
+            Auth::user(), ['project_role_id' => $request->project_role_id ] );
+
+        return response()->json( [ 'message' => 'joined to project sussefly' ], 200 ) ;
+    }
 }

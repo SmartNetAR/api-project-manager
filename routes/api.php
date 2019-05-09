@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get(  'project', 'ProjectController@index' ) ;
     Route::get(  'project/{id}', 'ProjectController@show' ) ;
     Route::post( 'project', 'ProjectController@store' ) ;
+    Route::post(  'project/join/{id}', 'ProjectController@join' ) ;
     /* roles */
         /* team */
     Route::get( 'teamrole', 'TeamRoleController@index' ) ;

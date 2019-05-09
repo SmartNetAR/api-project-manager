@@ -38,25 +38,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /* public function teams(){
-        return $this->belongsToMany('App\Team')->withPivot('role');
-    } */
-
     public function teams()
     {
-        // return $this->belongsToMany('App\Team', 'role_team_user') ;
-        return $this->belongsToMany('App\Team', 'role_team_user')->withPivot('role_id') ;
+        return $this->belongsToMany('App\Team', 'team_user')->withPivot('team_role_id') ;
     }
 
     public function projects()
     {
-        // return $this->belongsToMany('App\Project', 'project_user', 'project_id') ;
-        return $this->belongsToMany('App\Project', 'project_user', 'project_id', 'user_id')->withPivot('project_role_id') ;
+        return $this->belongsToMany('App\Project', 'project_user', 'user_id')->withPivot('project_role_id') ;
     }
     
     public function project_role()
     {
-        // return $this->belongsToMany('App\ProjectRole', 'project_user', 'project_role_id', 'user_id')->withPivot('project_id');
         return $this->belongsToMany('App\ProjectRole', 'project_user', 'user_id')->withPivot('project_id');
 
     }

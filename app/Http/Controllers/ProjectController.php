@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use Auth;
+use Validator;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -34,7 +36,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -45,7 +47,38 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:projects' ,
+            'description' => 'required' ,
+            'project_role_id' => 'required'
+        ]) ;
+
+        if ($validator->fails()) {
+            return response()->json(['error'=>$validator->errors()], 422);
+        }
+
+        
+        $result = DB::transaction(function() use ( $request ) {
+            
+            try
+            {
+                // dd('test') ;
+                $input = $request->all();
+                $project = Project::create( $input ) ;
+    
+                $project->users()->attach( 
+                    Auth::user(), ['project_role_id' => $request->project_role_id ]
+                );
+                return response()->json( [ 'project' => $project ], 200 ) ;
+            }
+            catch (\Exception $e)
+            {
+                DB::rollback() ;
+                return response()->json( [ 'error' => $e->getMessage() ] ) ;
+            }
+        } ) ;
+        
+        return $result ;
     }
 
     /**

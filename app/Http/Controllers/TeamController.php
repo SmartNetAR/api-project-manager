@@ -18,7 +18,10 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Auth::user()->teams ;
+
+        return response()->json(['teams' => $teams]) ;
+
     }
 
     /**
@@ -56,7 +59,7 @@ class TeamController extends Controller
                 $team = Team::create( $input ) ;
     
                 $team->users()->attach( 
-                    Auth::user(), ['role_id' => '1']
+                    Auth::user(), ['team_role_id' => '1']
                 );
                 return response()->json( [ 'team' => $team ], 200 ) ;
             }
@@ -128,7 +131,7 @@ class TeamController extends Controller
         // validar que el usuario no pertenezca al equipo
                 
         $team->users()->attach( 
-            Auth::user(), ['role_id' => '2'] );
+            Auth::user(), ['team_role_id' => '2'] );
 
         return response()->json( [ 'message' => 'joined to team sussefly' ], 200 ) ;
     }

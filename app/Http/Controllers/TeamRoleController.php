@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Role;
+use App\TeamRole;
 use Illuminate\Http\Request;
 use Auth;
 
-class RoleController extends Controller
+class TeamRoleController extends Controller
 {
 
     public function roles()
@@ -24,7 +24,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = TeamRole::all() ;
+
+        return response()->json( [ 'roles' => $roles ], 200 ) ;
     }
 
     /**
@@ -45,7 +47,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**

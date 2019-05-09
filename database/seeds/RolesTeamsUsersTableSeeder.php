@@ -11,16 +11,16 @@ class RolesTeamsUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('role_team_user')->insert([
+        DB::table('team_user')->insert([
             'user_id' => 1,
             'team_id' => 1,
-            'role_id' => 1
+            'team_role_id' => 1
         ]) ;
 
-        DB::table('role_team_user')->insert([
+        DB::table('team_user')->insert([
             'user_id' => 2,
             'team_id' => 1,
-            'role_id' => 2
+            'team_role_id' => 2
         ]) ;
     }
 }
